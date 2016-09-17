@@ -6,18 +6,32 @@
 	<body>
 		<div class="jumbotron">
 			<div class="container">
-				{% if forecast %}
-					<h1> {{ forecast }}!</h1>
-					<a href="{{ url_for('index') }}">  Look up another address </a>
+				{% if restaurant %}
+					{{ restaurant }}
+					<h1> {{ restaurant.rating }}</h1>
+					<a href="{{ url_for('index') }}">  Look up another restaurant </a>
 				{% else %}
-					<h1>Hello! Where do you live?</h1>
+					<h1>What type of food are you in the mood for?</h1>
 					<form action="/" class="form-inline">
 						<div class="form-group">
-							<input type="text" name="address" placeholder="Enter your city and state" class="form-control">
+							<input type="text" name="term" placeholder="Italian, Mexican, Chinese..." class="form-control">
+						</div>
+
+					<h1>Where do you want to eat?</h1>
+					<form action="/" class="form-inline">
+						<div class="form-group">
+							<input type="text" name="location" placeholder="Type in a location" class="form-control">
 						</div>
 						<input type="submit" name="Submit" class="btn btn-primary">
 					</form>
 				{% endif %}
+
+
+				{% for restaurant in restaurants %}
+					{{ business.address }}
+					{{ business.name }}
+					{{ business.rating}}
+				{% endfor %}
 				<br>
 				<a href="{{ url_for('about') }}">About this project </a>
 			</div>

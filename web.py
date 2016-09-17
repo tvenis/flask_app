@@ -1,16 +1,19 @@
 # -*- coding: utf-8 -*-
 from flask import Flask, render_template, request
-import weather
+import yelp_api
 import os
 app = Flask(__name__)
 
 @app.route("/")
 def index():
-	address = request.values.get('address')
-	forecast = None
-	if address:
-			forecast = weather.get_weather(address)
-	return render_template('index.html', forecast=forecast)
+	location = request.values.get('location')
+	term = request.values.get('term')
+	lang = 'en'
+	if location:
+			restaurant = yelp_api.get_restaurant(term, location, lang)
+	else:
+			restaurant = None
+	return render_template('index.html', restaurant=restaurant)
 
 @app.route('/about')
 def about():
